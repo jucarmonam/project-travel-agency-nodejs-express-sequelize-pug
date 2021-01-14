@@ -1,0 +1,31 @@
+extends ./layout/index
+
+block contenido
+    main.container.mt-5
+        h1.text-center.mt-5 #{pagina}
+        
+        blockquote.text-center Lee sobre nuestros clientes y sus experiencias
+            include ./layout/bloque_testimoniales
+        .row
+
+            .col-md-12
+                h2.d-block.w-100.text-center Agrega un Testimonial
+
+                if(error)
+                    .alert.col.alert-danger.text-center= error
+
+            .row.justify-content-center.col
+                .col-md-8
+                    //- aqui enviaremos una peticion de tipo post a la url de testimoniales y aqui es muy importante los name= porque esos son los que se basara express para pasar la informacion
+                    form(action="/testimoniales" method="POST")
+                        .form-group
+                            label(for="nombre") Nombre
+                            input#nombre(type="text", placeholder="Tu Nombre", name="nombre", class="form-control" value= nombre)
+                        .form-group
+                            label(for="correo") Correo Electrónico
+                            input#correo(type="text", placeholder="Tu correo", name="correo", class="form-control", value= correo)
+                        .form-group
+                            label(for="mensaje") Mensaje
+                            textarea#mensaje(class="form-control", name="mensaje", placeholder="Tu Mensaje" rows="3")= mensaje
+
+                        input.btn.btn-success.btn-block(type="submit")
